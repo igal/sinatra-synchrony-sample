@@ -1,0 +1,11 @@
+cookie:
+  # Encrypt cookies using this secret string:
+  secret: "CHANGE ME TO SOMETHING!"
+database:
+  # Number of database connections to keep open:
+  pool_size: 4
+  # Credentials for database connections, as recognized by `EventMachine::Synchrony::ConnectionPool.new()`
+  credentials:
+    host: localhost
+    user: root
+    password:
