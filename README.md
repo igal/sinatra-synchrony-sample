@@ -3,6 +3,11 @@ sinatra-synchrony sample application
 
 This is a small application demonstrating Kyle Drake's [sinatra-synchrony](https://github.com/kyledrake/sinatra-synchrony) stack.
 
+WARNING
+-------
+
+This code doesn't work correctly, and will hang and crash. My hope is that someone that knows how these libraries are intended to work can submit a pull request with corrections so I and others could submit documentation patches back to the originating projects. Or if these are bugs, please comment so we can bugs. Please see `FIXME` lines in the `app.rb` file for details.
+
 Running the application
 -----------------------
 

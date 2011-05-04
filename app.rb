@@ -60,6 +60,13 @@ class App < Sinatra::Base
   end
 
   get "/parallel" do
+    # FIXME This method can only be called once, and will then hang and crash the server :
+=begin
+/home/igal/.rvm/gems/ruby-1.9.2-p180/gems/rack-fiber_pool-0.9.1/lib/fiber_pool.rb:48:in `block (3 levels) in initialize': undefined method `call' for #<EventMachine::Synchrony::Multi:0x979e3a8> (NoMethodError)
+        from /home/igal/.rvm/gems/ruby-1.9.2-p180/gems/rack-fiber_pool-0.9.1/lib/fiber_pool.rb:47:in `loop'
+        from /home/igal/.rvm/gems/ruby-1.9.2-p180/gems/rack-fiber_pool-0.9.1/lib/fiber_pool.rb:47:in `block (2 levels) in initialize'
+=end
+    
     @title = "Parallel calls"
 
     @number_of_calls = 4
@@ -75,10 +82,14 @@ class App < Sinatra::Base
         multi.add(:"s#{i}", db.aquery("select sleep(#{@sleep_time})"))
       end
       multi.add(:database_names, db.aquery("show databases"))
-      result = multi.perform
-      # FIXME Is this really the expected way to get results from a Multi?! Yuck.
-      result.responses[:callback][:database_names].callback do |query|
-        @names = query.all_hashes.map { |row| row["Database"] }
+      if result = multi.perform
+        # FIXME Is this really the expected way to get results from a Multi?! Yuck.
+        result.responses[:callback][:database_names].callback do |query|
+          @names = query.all_hashes.map { |row| row["Database"] }
+        end
+      else
+        # FIXME What're we supposed to do when the database pool fails, which it randomly does?
+        @names = [:database, :failure, :wtf]
       end
     end
 
