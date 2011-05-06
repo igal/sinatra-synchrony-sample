@@ -3,6 +3,8 @@ sinatra-synchrony sample application
 
 This is a small application demonstrating Kyle Drake's [sinatra-synchrony](https://github.com/kyledrake/sinatra-synchrony) stack.
 
+You may want to look at my [nodejs-concurrency-sample](https://github.com/igal/nodejs-concurrency-sample) application, which is the same application implemented using the [node.js](http://nodejs.org/) event-driven framework, [VisionMedia Express](http://expressjs.com/) web framework, and [Seq](https://github.com/substack/node-seq) concurrency library.
+
 WARNING
 -------
 
